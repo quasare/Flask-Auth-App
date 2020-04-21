@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="display-4">Feedback</h1>
+<p class="lead">Register or Login to Access Site</p>
+
+<ul>
+  {% if 'username' not in session %}
+  <li><a href={{url_for('show_register_form')}}>Register</a></li>
+  <li><a href={{url_for('show_login')}}>Login</a></li>
+  {% endif %}
+
+  {% if 'username' in session %}
+  <li><a href={{url_for('logout')}}>Logout</a></li>
+  <li><a href={{url_for('show_secret', username=session['username'])}}>Main Page</a></li>
+  {% endif %}
+</ul>
+
+{% endblock %}

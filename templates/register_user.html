@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Register User{% endblock %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1>{{self.title()}}</h1>
+    <form method="POST">
+        <div class="form-group">
+            {{ form.hidden_tag() }}
+
+            {% for field in form
+  if field.widget.input_type != 'hidden' %}
+            <p>
+                {{ field.label }}
+                {{ field(class_='form-control') }}
+                {% for error in field.errors %}
+                {{ error }}
+                {% endfor %}
+            </p>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+        <a href={{url_for('show_login')}} class="btn btn-info">Login</a>
+    </form>
+</div>
+{% endblock %}

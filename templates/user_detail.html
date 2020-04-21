@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% block title %} {{user.username}} {% endblock %}
+{% block content %}
+<div class="containter mt-5 text-center">
+    <div class="row">
+        <div class="card text-white bg-dark col-12">
+            <h5 class="text-white mt-2">Details</h5>
+            <div class="card-body text-white">
+                <p>Username: {{self.title()}}</p>
+                <p>Name: {{user.first_name}} {{user.last_name}}</p>
+                <p>Email: {{user.email}}</p>
+                <form>
+                    <button class="btn btn-danger" formaction={{url_for('delete_user', username=user.username)}}
+                        formmethod="POST">Delete
+                        User</button>
+                    <a class="btn btn-primary" href={{url_for('logout')}}>logout</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <h3>Feedback</h3>
+    <a href={{url_for('add_feedback', username=user.username)}} class="btn btn-primary">Add Feedback</a>
+    <div class="row mt-2 justify-content-center">
+        {% for f in user.feedback %}
+        <div class="col-md-4">
+            <div class="card bg-dark">
+                <div class="card-body text-white">
+                    <h5>{{f.title}}</h5>
+                    <p>{{f.content}}</p>
+                    <p class="font-weight-light font-italic">Created by: {{self.title()}}</p>
+                    <form>
+                        <a href={{url_for('edit_feedback', feedback_id=f.id)}} class="btn btn-warning">Edit</a>
+                        <button formaction={{url_for('delete_feedback', feedback_id=f.id)}} formmethod="POST"
+                            class="btn btn-danger">
+                            Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}
